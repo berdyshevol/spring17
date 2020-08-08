@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Marathon</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<h2>Create new Marathon</h2>
+<form th:action="@{/create-sprint/{marathon_id}(marathon_id=${marathon_id})}" th:object="${sprint}" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="title">Title:</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{title}" id="title" />
+            </td>
+            <td>
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="start">Start:</label>
+            </td>
+            <td>
+                <input type="date" name="start" id="start" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="finish">Finish:</label>
+            </td>
+            <td>
+                <input type="date" name="finish" id="finish" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create" />
+                <input type="reset" value="Clear" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<a th:href="@{/marathons}">Go to Marathons page</a>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Students from Marathon</title>
+</head>
+<body>
+    <div th:replace="header"></div>
+    <h2 th:text="'List of Students from ' + ${marathon.title}"/>
+    <form th:action="@{/create-student}" method="get" style="display: inline-block; margin-right: 20px">
+        <input type="hidden" name="marathon_id" th:value="${marathon.id}">
+        <input type="submit" value="New User Registration">
+    </form>
+    <form th:action="@{/students/{marathon_id}/add(marathon_id = ${marathon.id})}" method="get" style="display: inline-block">
+        <label for="users">Add Student from list:</label>
+        <select name="user_id" id="users">
+            <option>Select student...</option>
+            <option th:each="student : ${all_students}" th:value="${student.id}" th:text="${student.firstName + ' ' + student.lastName}" />
+        </select>
+        <input type="submit" value="Add">
+    </form>
+    <br><br>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>E-mail</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr th:each="student, iStat: ${students}">
+            <td th:text="${iStat.index + 1}" />
+            <td th:text="${student.id}" />
+            <td th:text="${student.firstName}" />
+            <td th:text="${student.lastName}" />
+            <td th:text="${student.email}" />
+            <td >
+                <a th:href="@{|/students/${marathon_id}/edit/${student.id}|}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{|/students/${marathon_id}/delete/${student.id}|}">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a th:href="@{/marathons}">Go to Marathons page</a>
+</body>
+</html>

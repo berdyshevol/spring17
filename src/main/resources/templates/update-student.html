@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit existing Student</title>
+</head>
+<body>
+    <div th:replace="header"></div>
+    <h2>Edit existing Student</h2>
+    <form th:object="${user}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="id">Id:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{id}" id="id" th:value="*{id}" disabled/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="first-name">First name:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{firstName}" id="first-name" th:value="*{firstName}" />
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="last-name">Last name:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{lastName}" id="last-name" th:value="*{lastName}" />
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">E-mail:</label>
+                </td>
+                <td>
+                    <input type="email" th:field="*{email}" id="email" th:value="*{email}" />
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password:</label>
+                </td>
+                <td>
+                    <input type="password" th:field="*{password}" id="password" th:value="*{password}"/>
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="role">Role:</label>
+                </td>
+                <td>
+                    <select name="role_id" id="role">
+                        <option>Select role...</option>
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}" />
+                    </select>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Update" />
+                    <input type="reset" value="Clear" />
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" th:value="*{id}">
+    </form>
+    <br>
+    <a th:href="@{/marathons}">Go to Marathons page</a>
+</body>
+</html>
